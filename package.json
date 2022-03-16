@@ -5,17 +5,12 @@
   "author": "Nadav Shaar",
   "license": "MIT",
   "repository": "NadavShaar/react-grid-table",
-  "homepage": "https://cristianagrigoriu.github.io/react-grid-table/",
+  "homepage": "https://cristianagrigoriu.github.io",
   "contributors": [
     {
-      "name": "Nadav Shaar",
-      "email": "nadavshaar@gamil.com",
-      "url": "https://github.com/NadavShaar"
-    },
-    {
-      "name": "Ilay Ofir",
-      "email": "ilayofir@gmail.com",
-      "url": "https://github.com/IlayOfir"
+      "name": "Cristiana Grigoriu",
+      "email": "cristiana.grigoriu@gamil.com",
+      "url": "https://github.com/cristianagrigoriu"
     }
   ],
   "keywords": [
