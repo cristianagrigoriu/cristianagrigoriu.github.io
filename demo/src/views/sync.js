@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import GridTable from "../../../src";
 import { ControllersDrawer } from "../components";
 import getColumns from "../getColumns";
-import MOCK_DATA from "../MOCK_DATA.json";
 import "../index.css";
+import axios from "axios";
 
 const MyAwesomeTable = () => {
     const [, setTableManager] = useState(null);
@@ -28,9 +28,10 @@ const MyAwesomeTable = () => {
     let [isPaginated, setIsPaginated] = useState(true);
     let [minSearchChars, setMinSearchChars] = useState(2);
     let [minColumnResizeWidth, setMinColumnWidth] = useState(70);
-    let [columns, setColumns] = useState(getColumns({ setRowsData }));
+    let [columns, setColumns] = useState(getColumns());
     let [isSettingsOpen, setIsSettingsOpen] = useState(false);
     let [selectAllMode, setSelectAllMode] = useState("page");
+    let [configurations, setConfigurations] = useState([]);
 
     const controllers = {
         columns: [columns, setColumns],
@@ -55,12 +56,28 @@ const MyAwesomeTable = () => {
         minSearchChars: [minSearchChars, setMinSearchChars],
         minColumnResizeWidth: [minColumnResizeWidth, setMinColumnWidth],
         selectAllMode: [selectAllMode, setSelectAllMode],
+        configurations: [configurations, setConfigurations],
     };
 
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
-            setRowsData(MOCK_DATA);
+            axios
+                .get(
+                    `https://orsologywebapi20220317094310.azurewebsites.net/api/values`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                .then((res) => {
+                    const configurations = res.data;
+                    console.log(configurations);
+                    setRowsData(configurations.applicationSettings);
+                    // setConfigurations(configurations.applicationSettings);
+                });
+
             setLoading(false);
         }, 1500);
     }, []);
