@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TableControllers from "./TableControllers";
-import ColumnsControllers from "./ColumnsControllers";
 
 const styles = {
     wrapper: {
@@ -35,7 +34,7 @@ const styles = {
         width: "100%",
     },
     tab: {
-        width: "50%",
+        width: "100%",
         border: "none",
         lineHeight: "34px",
         background: "#eef2f5",
@@ -134,10 +133,6 @@ const ControllersDrawer = ({ isOpen, onToggle, controllers }) => {
         ...styles.tab,
         ...(tab === "table" ? styles.activeTab : {}),
     };
-    const columnsTabStyles = {
-        ...styles.tab,
-        ...(tab === "columns" ? styles.activeTab : {}),
-    };
 
     return (
         <div style={drawerStyles} className="settingsDrawer">
@@ -179,19 +174,9 @@ const ControllersDrawer = ({ isOpen, onToggle, controllers }) => {
                 <button onClick={() => setTab("table")} style={tableTabStyles}>
                     Table
                 </button>
-                <button
-                    onClick={() => setTab("columns")}
-                    style={columnsTabStyles}
-                >
-                    Columns
-                </button>
             </div>
             <div style={styles.controllers}>
-                {tab === "table" ? (
-                    <TableControllers controllers={controllers} />
-                ) : (
-                    <ColumnsControllers controllers={controllers} />
-                )}
+                <TableControllers controllers={controllers} />
             </div>
         </div>
     );
