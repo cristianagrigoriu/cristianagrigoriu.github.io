@@ -32,6 +32,12 @@ const MyAwesomeTable = () => {
     let [isSettingsOpen, setIsSettingsOpen] = useState(false);
     let [selectAllMode, setSelectAllMode] = useState("page");
     let [configurations, setConfigurations] = useState([]);
+    let [visibleConfigurations, setVisibleConfigurations] = useState([]);
+    let [retailers, setRetailers] = useState([]);
+    let [selectedRetailer, setSelectedRetailer] = useState(null);
+    let [applications, setApplications] = useState([]);
+    let [selectedModule, setSelectedModule] = useState(null);
+    let [selectedApplication, setSelectedApplication] = useState(null);
 
     const controllers = {
         columns: [columns, setColumns],
@@ -57,6 +63,15 @@ const MyAwesomeTable = () => {
         minColumnResizeWidth: [minColumnResizeWidth, setMinColumnWidth],
         selectAllMode: [selectAllMode, setSelectAllMode],
         configurations: [configurations, setConfigurations],
+        visibleConfigurations: [
+            visibleConfigurations,
+            setVisibleConfigurations,
+        ],
+        retailers: [retailers, setRetailers],
+        applications: [applications, setApplications],
+        selectedRetailer: [selectedRetailer, setSelectedRetailer],
+        selectedModule: [selectedModule, setSelectedModule],
+        selectedApplication: [selectedApplication, setSelectedApplication],
     };
 
     useEffect(() => {
@@ -73,14 +88,36 @@ const MyAwesomeTable = () => {
                 )
                 .then((res) => {
                     const configurations = res.data;
-                    console.log(configurations);
+                    setRetailers(configurations.Retailers);
+                    setApplications(configurations.Applications);
+                    setConfigurations(configurations.applicationSettings);
+                    setVisibleConfigurations(
+                        configurations.applicationSettings
+                    );
                     setRowsData(configurations.applicationSettings);
-                    // setConfigurations(configurations.applicationSettings);
                 });
 
             setLoading(false);
         }, 1500);
     }, []);
+
+    useEffect(() => {
+        setRowsData(
+            configurations
+                .filter(
+                    (config) =>
+                        config.Retailer == selectedRetailer ||
+                        selectedRetailer == "null" ||
+                        selectedRetailer == null
+                )
+                .filter(
+                    (config) =>
+                        config.Application == selectedApplication ||
+                        selectedApplication == "null" ||
+                        selectedApplication == null
+                )
+        );
+    }, [selectedRetailer, selectedApplication, configurations]);
 
     return (
         <div className="demo">

@@ -184,6 +184,38 @@ const TableControllers = ({ controllers }) => {
                     <option value={"all"}>All</option>
                 </select>
             </ControllerWrappper>
+            <ControllerWrappper label="Retailers">
+                <select
+                    onChange={(e) => {
+                        controllers.selectedRetailer[1](e.target.value);
+                    }}
+                >
+                    <option value={"null"}>None</option>
+                    {controllers.retailers[0].map((r) => {
+                        return (
+                            <option key={r} value={r}>
+                                {r}
+                            </option>
+                        );
+                    })}
+                </select>
+            </ControllerWrappper>
+            <ControllerWrappper label="Application">
+                <select
+                    onChange={(e) => {
+                        controllers.selectedApplication[1](e.target.value);
+                    }}
+                >
+                    <option value={"null"}>None</option>
+                    {controllers.applications[0].map((r) => {
+                        return (
+                            <option key={r} value={r}>
+                                {r}
+                            </option>
+                        );
+                    })}
+                </select>
+            </ControllerWrappper>
         </React.Fragment>
     );
 };
